@@ -9,6 +9,7 @@ import {
 } from '../../utils/firebase/firebase.utils';
 
 import '../sign-up-form/sign-up-form.styles.scss';
+import Button from '../button/button.component.jsx';
 
 const defaultFormFields = {
   displayName: '',
@@ -83,7 +84,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <button type="submit">SignUp</button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
