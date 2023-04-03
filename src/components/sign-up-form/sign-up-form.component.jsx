@@ -22,7 +22,9 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
+  const resetformFields = () => {
+    setFormFields(defaultFormFields);
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -31,8 +33,10 @@ const SignUpForm = () => {
       alert('Passwords do not match');
       return;
     }
-    const response = await createAuthUserWithEmailAndPassword(email, password);
+    const { user } = await createAuthUserWithEmailAndPassword(email, password);
     try {
+      await createUserDocumentFromAuth(user, { displayName });
+      resetformFields();
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use');
@@ -84,7 +88,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">SignUp</Button>
       </form>
     </div>
   );
